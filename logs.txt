@@ -1,0 +1,7 @@
+[09.09.2026]Server started on port 1488
+[09.09.2026]Server started on port 1488
+[09.09.2026]Server started on port 1488
+[09.09.2026] Got received / GET
+[09.09.2026] Got received /favicon.ico GET
+[09.09.2026]Server started on port 1488
+[09.09.2026] Server stoped
