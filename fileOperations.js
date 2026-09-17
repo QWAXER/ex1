@@ -120,5 +120,6 @@ callback(null, onlyFiles);
 .catch(err => callback(err, null)); 
 }); 
 } 
-} 
+}
+
 module.exports = FileManager; 

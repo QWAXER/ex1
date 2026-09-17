@@ -9,9 +9,7 @@ if (err) {
         console.error('❌ Ошибка создания:', err.message); 
         return; 
     } 
-    console.log(`  
-✅
- Файл создан: ${filePath}`); 
+    console.log(`✅ Файл создан: ${filePath}`); 
      
     // 2. Чтение файла (вложенный колбэк) 
     console.log('\n2. Чтение файла...'); 
@@ -41,9 +39,7 @@ if (err) {
                     console.error('❌ Ошибка создания второго файла:', err.message); 
                     return; 
                 } 
-                console.log(`  
-✅
- Второй файл создан: ${filePath2}`); 
+                console.log(`✅ Второй файл создан: ${filePath2}`); 
                  
                 // 5. Список файлов 
                 console.log('\n5. Список файлов...'); 
@@ -52,10 +48,8 @@ if (err) {
                         console.error(' ❌ Ошибка получения списка:', err.message); 
                         return; 
                     } 
-                    console.log(`  
-✅
- Файлы в директории:`); 
-files.forEach(file => console.log(`     - ${file}`)); 
+                    console.log(`✅Файлы в директории:`); 
+files.forEach(file => console.log(`- ${file}`)); 
 // 6. Удаление файлов (самый глубокий уровень) 
 console.log('\n6. Очистка...'); 
 fileManager.deleteFile('test1.txt', (err) => { 
