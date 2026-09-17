@@ -2,17 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 
-// Преобразуем методы fs в промисы (как в fileOperationsPromises.js)
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 const unlink = util.promisify(fs.unlink);
 const readdir = util.promisify(fs.readdir);
 const stat = util.promisify(fs.stat);
 
-/**
- * Ошибка операции с файлом.
- * Хранит код ошибки (ENOENT, EINVAL и т.д.), название операции и исходную ошибку.
- */
 class FileOperationError extends Error {
   constructor(message, code, operation, cause = null) {
     super(message);
@@ -23,31 +18,18 @@ class FileOperationError extends Error {
   }
 }
 
-/**
- * Класс для работы с файлами с использованием колбэков И промисов.
- * Если последним аргументом метода передан callback — используется колбэк-стиль,
- * как в fileOperations.js. Если callback не передан — метод возвращает Promise,
- * как в fileOperationsPromises.js.
- */
 class FileManagerHybrid {
-  /**
-   * Конструктор
-   * @param {string} baseDir - базовая директория для операций
-   */
+
   constructor(baseDir = './data-hybrid') {
     this.baseDir = baseDir;
 
-    // Создаём директорию, если её нет (синхронно для простоты)
     if (!fs.existsSync(baseDir)) {
       fs.mkdirSync(baseDir, { recursive: true });
       console.log(`Создана директория: ${baseDir}`);
     }
   }
 
-  /**
-   * Проверка имени файла и оборачивание ошибок в FileOperationError.
-   * Общая часть для обоих стилей, чтобы не дублировать код.
-   */
+
   _checkFilename(filename, operation) {
     if (typeof filename !== 'string' || filename.trim() === '') {
       throw new FileOperationError('Имя файла должно быть непустой строкой', 'EINVAL', operation);
@@ -60,12 +42,6 @@ class FileManagerHybrid {
     return new FileOperationError(err.message, code, operation, err);
   }
 
-  /**
-   * Создание файла с содержимым (колбэк или промис)
-   * @param {string} filename - имя файла
-   * @param {string} content - содержимое
-   * @param {Function} [callback] - (err, filePath) => void; если не передан — возвращается Promise<string>
-   */
   createFile(filename, content, callback) {
     const filePath = path.join(this.baseDir, filename);
 
@@ -98,11 +74,6 @@ class FileManagerHybrid {
     })();
   }
 
-  /**
-   * Чтение файла (колбэк или промис)
-   * @param {string} filename - имя файла
-   * @param {Function} [callback] - (err, content) => void; если не передан — возвращается Promise<string>
-   */
   readFile(filename, callback) {
     const filePath = path.join(this.baseDir, filename);
 
@@ -133,12 +104,6 @@ class FileManagerHybrid {
       }
     })();
   }
-
-  /**
-   * Получение информации о файле (колбэк или промис)
-   * @param {string} filename - имя файла
-   * @param {Function} [callback] - (err, stats) => void; если не передан — возвращается Promise<Object>
-   */
   getFileStats(filename, callback) {
     const filePath = path.join(this.baseDir, filename);
 
@@ -181,11 +146,6 @@ class FileManagerHybrid {
     })();
   }
 
-  /**
-   * Удаление файла (колбэк или промис)
-   * @param {string} filename - имя файла
-   * @param {Function} [callback] - (err) => void; если не передан — возвращается Promise<void>
-   */
   deleteFile(filename, callback) {
     const filePath = path.join(this.baseDir, filename);
 
@@ -229,7 +189,6 @@ class FileManagerHybrid {
           return;
         }
 
-        // Фильтруем только файлы (не директории)
         const filePromises = files.map((file) => {
           return new Promise((resolve) => {
             const filePath = path.join(this.baseDir, file);
@@ -266,21 +225,12 @@ class FileManagerHybrid {
     })();
   }
 
-  /**
-   * Создание нескольких файлов параллельно
-   * @param {Array<{filename: string, content: string}>} files
-   * @returns {Promise<string[]>} - массив путей
-   */
+
   async createMultipleFiles(files) {
     const promises = files.map(({ filename, content }) => this.createFile(filename, content));
     return await Promise.all(promises);
   }
 
-  /**
-   * Чтение нескольких файлов параллельно
-   * @param {string[]} filenames
-   * @returns {Promise<Object>} - объект { filename: content }
-   */
   async readMultipleFiles(filenames) {
     const promises = filenames.map(async (filename) => {
       const content = await this.readFile(filename);
