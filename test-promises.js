@@ -9,16 +9,12 @@ async function testFileOperations() {
         // 1. Создание файла 
         console.log('1. Создание файла...'); 
         const filePath = await fileManager.createFile('test1.txt', 'Привет из промисов!'); 
-        console.log(`  
-✅
- Файл создан: ${filePath}`); 
+        console.log(`✅ Файл создан: ${filePath}`); 
          
         // 2. Чтение файла 
         console.log('\n2. Чтение файла...'); 
         const content = await fileManager.readFile('test1.txt'); 
-        console.log(`  
-✅
- Содержимое: "${content}"`); 
+        console.log(`✅Содержимое: "${content}"`); 
          
         // 3. Получение статистики 
         console.log('\n3. Получение статистики...'); 
