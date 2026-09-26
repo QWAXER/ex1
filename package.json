@@ -7,6 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
+  "license": "ISC",
   "author": "",
   "dependencies": {
     "archiver": "^7.0.1"
