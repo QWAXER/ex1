@@ -8,7 +8,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
   "dependencies": {
     "archiver": "^7.0.1"
   }
