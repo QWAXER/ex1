@@ -38,14 +38,15 @@ describe('CLI integration', () => {
 
     expect(result.status).toBe(0);
     expect(result.stdout).toContain('Привет, Иван!');
-    expect(result.stdout).toContain('ББМО-01-23');
+    expect(result.stdout).toContain('группы 478');
   });
 
   test('info выводит информацию о группе', () => {
     const result = run(['info']);
 
     expect(result.status).toBe(0);
-    expect(result.stdout).toContain('Группа: ББМО-01-23');
+    expect(result.stdout).toContain('Группа: 478');
+    expect(result.stdout).toContain('Студент: Филеня Кирилл');
     expect(result.stdout).toContain('Лабораторная работа: №17');
   });
 

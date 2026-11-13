@@ -4,8 +4,8 @@ const { CliError } = require('../utils/errors');
 const { displayPath } = require('../utils/paths');
 
 const VALID_TYPES = ['html', 'pdf', 'json', 'csv'];
-const GROUP = 'ББМО-01-23';
-const STUDENT = 'Иванов Иван';
+const GROUP = '478';
+const STUDENT = 'Филеня Кирилл';
 
 function validateType(type) {
   const normalized = String(type || '').trim().toLowerCase();

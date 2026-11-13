@@ -3,6 +3,6 @@ module.exports = (program) => {
     .command('greet <name>')
     .description('поприветствовать пользователя')
     .action((name) => {
-      process.stdout.write(`Привет, ${name}! Добро пожаловать в CLI-приложение группы ББМО-01-23.\n`);
+      process.stdout.write(`Привет, ${name}! Добро пожаловать в CLI-приложение группы 478.\n`);
     });
 };

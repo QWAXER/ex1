@@ -47,7 +47,8 @@ describe('reportService', () => {
     const result = generateReport({ type: 'json', output: 'report.json', cwd: directory });
     const data = JSON.parse(fs.readFileSync(result.output, 'utf8'));
 
-    expect(data.group).toBe('ББМО-01-23');
+    expect(data.group).toBe('478');
+    expect(data.student).toBe('Филеня Кирилл');
     expect(data.title).toContain('№17');
   });
 
