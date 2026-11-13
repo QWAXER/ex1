@@ -4,7 +4,7 @@ const ora = require('ora');
 const cliProgress = require('cli-progress');
 const logger = require('../utils/logger');
 const { displayPath } = require('../utils/paths');
-const { processFile } = require('../services/processService');
+const { processFile, expandFilePatterns } = require('../services/processService');
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -20,8 +20,8 @@ module.exports = (program) => {
     .option('-o, --output <path>', 'файл результата', 'output.json')
     .action(async (options, command) => {
       const settings = command.optsWithGlobals();
-      const files = settings.files || [];
       const cwd = process.cwd();
+      const files = expandFilePatterns(settings.files || [], { cwd });
       const showUi = Boolean(process.stderr.isTTY && process.stdout.isTTY);
       const verbose = Boolean(settings.verbose);
       const results = [];

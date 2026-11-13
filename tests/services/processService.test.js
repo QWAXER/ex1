@@ -1,7 +1,11 @@
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { processFile, processFiles } = require('../../services/processService');
+const {
+  processFile,
+  processFiles,
+  expandFilePatterns
+} = require('../../services/processService');
 
 describe('processService', () => {
   let directory;
@@ -47,5 +51,15 @@ describe('processService', () => {
     const results = processFiles(['a.txt', 'b.txt', 'c.txt'], { cwd: directory });
 
     expect(results.map((item) => item.status)).toEqual(['ok', 'ok', 'missing']);
+  });
+
+  test('раскрывает маску файлов', () => {
+    fs.writeFileSync(path.join(directory, 'a.txt'), 'a', 'utf8');
+    fs.writeFileSync(path.join(directory, 'b.txt'), 'b', 'utf8');
+    fs.writeFileSync(path.join(directory, 'c.md'), 'c', 'utf8');
+
+    const files = expandFilePatterns(['*.txt'], { cwd: directory });
+
+    expect(files.sort()).toEqual(['a.txt', 'b.txt']);
   });
 });
