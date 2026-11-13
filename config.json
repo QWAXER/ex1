@@ -1,0 +1,7 @@
+{
+  "name": "my-cli",
+  "version": "1.0.0",
+  "entry": "cli.js",
+  "outDir": "dist",
+  "description": "CLI-приложение для лабораторной работы №17"
+}

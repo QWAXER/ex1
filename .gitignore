@@ -1,0 +1,12 @@
+node_modules/
+coverage/
+dist/
+.env
+.DS_Store
+*.log
+output.json
+output.html
+output.pdf
+output.csv
+output.txt
+.jest-report.json
