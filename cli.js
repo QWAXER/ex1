@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 const { Command } = require('commander');
 const { version } = require('./package.json');
 const { printFatal } = require('./utils/errors');
